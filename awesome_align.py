@@ -5,6 +5,8 @@ from shiboken import wrapInstance
 import numpy as np
 import math
 
+#todo : escape cologne
+
 def getVertexPosition(obj, num):
     v = cmds.select(obj +'.vtx[{0}]'.format(num))
     p = cmds.xform(v, q=True, ws=True, t=True)
