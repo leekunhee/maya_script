@@ -30,6 +30,7 @@ The two valid DAG paths in this graph :
 ##DAG paths
 A path through the DAG is a set of nodes which uniquely identifies the location of the particular node or instance of a node in the graph. The path represents a graph ancestry beginning with the root node of the graph and containing, in succession, a particular child of the root node followed by particular child of this child,etc., down to the node identified by the path. For instanced nodes, there are multiple paths which lead from the root node to the instanced node, one path for each instance.
 
+<<<<<<< HEAD
 In Maya, selection at the object level results in the selection of the transform node that is the parent of the shpae actually selected. When querying the selection using *MGlobal::getActiveSelectionList()*, the *MDagPath* returned to the caller only specifies the path to this transform and not down to the actual shape that was picked on the screen. A convenience method on *MDagPath* called *extendToShape()* can be called to add the shape node below the last transform to the path.
 
 The valid function sets applicable to a particular *MDagPath* are determined by the last node on the path. If the last node is a transform node, then the function sets that can operate on transform nodes can be applied to the *MDagPath* instance. If a shape node is the last node of the path, then the applicable function sets for the *MDagPath* instance are those sets which can operate on the shape.
@@ -51,6 +52,12 @@ Since the nodes in a path exist at different levels of the DAG hierarchy. there 
 A transform node can have any number of transform nodes as children. In general, a transform node can only have a single shape node as a child, and when viewing the DAG through an interactive window this will always be the case. However when examining the DAG through the API you will find that transforms may have multiple shape nodes as children. the happens when the original shape under the transform has been modified by the dependency graph. To maintain the transformations on the result of the dependency graph, the result is placed under the same transform asthe original node. The new node would have the same DAG transforms applied as original, but would be modified in some way. When this happens, only the final product is visible in an interactive window, and the original nodes are historical.
 [I can't understand it yet](http://help.autodesk.com/view/MAYAUL/2016/ENU/?guid=__files_DAG_Hierarchy_Transforms_with_multiple_shapes_htm)
 
+=======
+###why add the shape node to a DAG path
+In Maya, selection at the object lebel results in the selection od the transform node that is the parent of the shpae actually selected. When querying the selection using *MGlobal::getActiveSelectionList()*, the *MDagPath* returned to the caller only specifies the path to this transform and not down to the actual shape that was picked on the screen. A convenience method on *MDagPath* called *extendToShape()* can be called to add the shape node below the last transform to the path.
+
+The valid function sets applicable to a particular *MDagPath* are determined by the last node on the path. If the last node is a transform node, then the function sets that can operate on transform nodes can be applied to the *MDagPath* instance. If a shape node is the last node of the path, then the applicable function sets for the *MDagPath* instance are those sets which can operate on the shape.
+>>>>>>> 2c9a44d602cc3f9a93a6e26c0bd22783d382322b
     
 ##Examples
 
