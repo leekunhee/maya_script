@@ -19,4 +19,9 @@ def export_json(dict, outputname):
     dir = QtGui.QFileDialog.getExistingDirectory()
     filename = dir + '/' + outputname + '.json'
     with open(filename, 'w') as outfile:
-        json.dump(dict, outfile)
+        json.dump(dict, outfile, indent=4, sort_keys=True)
+        
+
+#loading?
+# with open('filename.txt', 'r') as handle:
+#     parsed = json.load(handle)

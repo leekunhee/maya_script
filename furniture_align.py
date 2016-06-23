@@ -3,8 +3,6 @@ import maya.cmds as cmds
 from PySide import QtCore, QtGui
 from shiboken import wrapInstance
 
-import numpy as np
-
 def maya_main_window():
     main_window_ptr = omui.MQtUtil.mainWindow()
     return wrapInstance(long(main_window_ptr), QtGui.QWidget)
@@ -91,7 +89,12 @@ select 4 vertices and put the number of height as centimeter.
         vert2 = cmds.select(plane +'.vtx[1]')
         vert2_pos = cmds.xform(vert2, q=True, ws=True, t=True)
         
-        p = np.average(np.array((vert1_pos, vert2_pos)), axis = 0)
+        p_x = (vert1_pos[0] + vert2_pos[0])/2
+        p_y = (vert1_pos[1] + vert2_pos[1])/2
+        p_z = (vert1_pos[2] + vert2_pos[2])/2
+        
+        p = [p_x, p_y, p_z]
+        #p = np.average(np.array((vert1_pos, vert2_pos)), axis = 0)
         
         cmds.move(p[0],p[1],p[2], 'locator_for_z')
         cmds.scale(0.1,0.1,0.1,'locator_for_z')
@@ -119,8 +122,20 @@ select 4 vertices and put the number of height as centimeter.
         v2 = cmds.xform(verts[2], q=True, ws = True, t = True)
         v3 = cmds.xform(verts[3], q=True, ws = True, t = True)
         print v0, v1, v2, v3
+        
+        """not using numpy
+        """
+        cp_x = (v0[0]+v1[0]+v2[0]+v3[0])/4
+        cp_y = (v0[1]+v1[1]+v2[1]+v3[1])/4
+        cp_z = (v0[2]+v1[2]+v2[2]+v3[2])/4
+        
+        cp = [cp_x, cp_y, cp_z]
+        
+        """ using numpy
         verts_pos = np.reshape(np.array(verts_pos), (len(verts_pos)/3,3))
         cp = np.average(verts_pos, axis = 0)
+        """
+        
         object = verts[0].split('.vtx')[0]
         plane = 'bottom_plane'
 
@@ -130,7 +145,6 @@ select 4 vertices and put the number of height as centimeter.
         self.movePivot(cp, plane)
         cmds.parent(object, plane)
         cmds.move(-cp[0],-cp[1],-cp[2], plane)
-        print cp
         self.align_plane(plane)
 
         #clean up the aid objects
@@ -156,7 +170,10 @@ if __name__ == "__main__":
         ui.close()
     except:
         pass
-    
+        
     ui = Ui()
     ui.show()
 
+    
+
+    

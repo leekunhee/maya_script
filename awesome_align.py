@@ -2,9 +2,7 @@ import maya.OpenMayaUI as omui
 import maya.cmds as cmds
 from PySide import QtCore, QtGui
 from shiboken import wrapInstance
-import numpy as np
 import math
-
 #todo : escape cologne
 
 def getVertexPosition(obj, num):
@@ -35,7 +33,13 @@ def setLocators(plane):
     p0 = getVertexPosition(plane, 0)
     p1 = getVertexPosition(plane, 1)
     p2 = getVertexPosition(plane, 2)
-    p = np.average(np.array((p0,p1,p2)), axis = 0)
+    
+    px = (p0[0]+p1[0]+p2[0])/3
+    py = (p0[1]+p1[1]+p2[1])/3
+    pz = (p0[2]+p1[2]+p2[2])/3
+    
+    p = [px,py,pz] 
+    #p = np.average(np.array((p0,p1,p2)), axis = 0)
 
     #calc locator position
     lo_x = fn_x + p[0]
@@ -288,7 +292,10 @@ after 3 vertices of (source/target)mesh and click the following select button.
 
             #set subject pivot to object center
             goto = cmds.getAttr('locator_center_' + obj +'.t')
-            g = np.array(goto[0])
+            
+            #g = np.array(goto[0])
+            g = [float(goto[0][0]), float(goto[0][1]), float(goto[0][2])]
+            
             cmds.move(g[0],g[1],g[2], sub + '.scalePivot')
             cmds.move(g[0],g[1],g[2], sub + '.rotatePivot')
 
