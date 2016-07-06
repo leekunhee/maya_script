@@ -6,9 +6,8 @@ import math
 #todo : escape cologne
 
 def getVertexPosition(obj, num):
-    v = cmds.select(obj +'.vtx[{0}]'.format(num))
-    p = cmds.xform(v, q=True, ws=True, t=True)
-    return p
+    return cmds.xform(obj +'.vtx[{0}]'.format(num), q=True, ws=True, t=True)
+    
 
 def getVertexDistance(obj, num1, num2):
     p1 = getVertexPosition(obj, num1)
